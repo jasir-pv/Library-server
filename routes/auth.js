@@ -2,7 +2,7 @@ import express, { Router } from "express"
 import dotenv from "dotenv"
 import User from "../models/User.js"
 import CryptoJS from "crypto-js"
-// import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken"
 
 dotenv.config()
 
@@ -22,9 +22,7 @@ const router = express.Router()
             email: req.body.email,         
             password:pass  
                
-        })
-        
-       
+        })     
         try{
             const savedUser = await newUser.save()
             res.status(201).json(savedUser)
@@ -48,10 +46,15 @@ const router = express.Router()
             if (decryptedPassword !== req.body.password) {
                 return res.status(401).json("Invalid credentials");
             }
+
+            const accessToken = jwt.sign({
+                id:user._id, isAdmin: user.isAdmin
+            },process.env.JWT_SEC,
+        {expiresIn:"3d"})
  
             const { password, ...others} =user._doc
 
-            res.status(200).json(user)
+            res.status(200).json({user,accessToken})
 
         }catch(err){
             console.log("there have some problem")

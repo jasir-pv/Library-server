@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import authRoute from "./routes/auth.js"
+import userRoute from "./routes/user.js"
 
 dotenv.config(); 
 const app = express();
@@ -38,6 +39,7 @@ const connectDB = async () => {
 // API
 
   app.use("/api/auth", authRoute)
+  app.use("/api/users", userRoute)
 
 
 
