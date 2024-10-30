@@ -48,7 +48,7 @@ const router = express.Router()
             if (decryptedPassword !== req.body.password) {
                 return res.status(401).json("Invalid credentials");
             }
-
+ 
             const { password, ...others} =user._doc
 
             res.status(200).json(user)
@@ -56,7 +56,7 @@ const router = express.Router()
         }catch(err){
             console.log("there have some problem")
         }
-
+ 
     })
 
 
