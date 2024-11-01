@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import authRoute from "./routes/auth.js"
 import userRoute from "./routes/user.js"
+import booksRoute from "./routes/books.js"
+
 
 dotenv.config(); 
 const app = express();
@@ -14,11 +16,13 @@ const PORT = process.env.PORT || 3000
 
 app.use(cors());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' })); // for JSON data
+app.use(express.urlencoded({ limit: '50mb', extended: true })); // for URL-encoded data
 
 
-
+app.use("/api/auth", authRoute)
+app.use("/api/users", userRoute)
+app.use("/books", booksRoute)
 
 
 // MongoDB connection
@@ -38,8 +42,8 @@ const connectDB = async () => {
 
 // API
 
-  app.use("/api/auth", authRoute)
-  app.use("/api/users", userRoute)
+
+
 
 
 
