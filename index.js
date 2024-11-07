@@ -20,8 +20,8 @@ app.use(express.json({ limit: '50mb' })); // for JSON data
 app.use(express.urlencoded({ limit: '50mb', extended: true })); // for URL-encoded data
 
 
-app.use("/api/auth", authRoute)
-app.use("/api/users", userRoute)
+app.use("/auth", authRoute)
+app.use("/users", userRoute)
 app.use("/books", booksRoute)
 
 
